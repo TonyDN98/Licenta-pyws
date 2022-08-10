@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout('/layouts/boilerplate.ejs')%>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Place</title>
-</head>
-
-<body>
     <h1>Edit Place</h1>
+
+    <!--POST Place ID -->
     <form action="/places/<%=campground._id%>?_method=PUT" method="POST">
         <div>
             <label for="title">Title</label>
@@ -20,8 +14,6 @@
         </div>
         <button>Update Place</button>
     </form>
+
+    <!-- Back to added POST-->
     <a href="/places/<%= campground._id%>">Back To Place</a>
-
-</body>
-
-</html>

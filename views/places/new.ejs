@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Place</title>
-</head>
-
-<body>
+<% layout('/layouts/boilerplate.ejs')%>
     <form action="/places" method="POST">
         <div>
             <label for="title">Title</label>
@@ -19,8 +10,4 @@
         </div>
         <button>Add Places</button>
     </form>
-    <a href="/places">All Campgrounds</a>
-
-</body>
-
-</html>
+    <a href="/places">All Places</a>

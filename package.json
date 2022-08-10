@@ -1,7 +1,7 @@
 {
-  "name": "YelpCamp",
+  "name": "pyws",
   "version": "1.0.0",
-  "description": "",
+  "description": "Places You Want to Share",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,9 +11,20 @@
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.5",
+    "ejs-mate": "^4.0.0",
     "express": "^4.18.1",
     "method-override": "^3.0.0",
-    "mongoose": "^5.10.4",
+    "mongoose": "^5.10.4"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.19"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TonyDN98/pyws.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TonyDN98/pyws/issues"
+  },
+  "homepage": "https://github.com/TonyDN98/pyws#readme"
 }
