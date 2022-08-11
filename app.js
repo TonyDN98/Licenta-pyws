@@ -33,7 +33,7 @@ app.set('views', path.join(__dirname, 'views'))
 // Parse the header;
 app.use(express.urlencoded({ extended: true }));
 
-// This method will be execured everytime server will get a req;
+// This method will be executed everytime server will get a req;
 app.use(methodOverride('_method'));
 
 
