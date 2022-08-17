@@ -80,9 +80,6 @@ app.get('/places/new', (req, res) => {
 
 
 app.post('/places', validateCampground , catchAsync(async (req, res,next) => {
-        // if(!req.body.campground){
-        //     throw new ExpressError('Invalid Place Data',400) // goes to basic error handler;
-        // }
 
         const campground = new Campground(req.body.campground);
         await campground.save();
