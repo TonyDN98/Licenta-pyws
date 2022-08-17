@@ -102,7 +102,7 @@ app.get('/places/:id/edit', catchAsync(async (req, res) => {
 }));
 
 // Update;
-app.put('/places/:id', catchAsync (async (req, res) => {
+app.put('/places/:id',validateCampground, catchAsync (async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
     res.redirect(`/places/${campground._id}`)
