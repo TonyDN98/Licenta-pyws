@@ -3,6 +3,8 @@ const path = require('path'); // Req Path -> express default dir
 const mongoose = require('mongoose'); // Req Mongoose;
 const joi = require('joi'); // Req Joi Schema Validator
 const ejsMate = require('ejs-mate'); // req ejs mate layouts
+const session = require('express-session'); // Express session;
+const flash = require('connect-flash'); // Connect Flash
 const {campgroundSchema, reviewSchema} = require('./schemas.js')// Require the Schema
 const catchAsync = require('./utils/catchAsync'); // req catchAsync handler
 const ExpressError = require('./utils/ExpressError'); //ExpressError Handler
@@ -41,8 +43,6 @@ db.once("open", () => {
 const app = express(); // start express;
 
 app.engine('ejs', ejsMate);
-
-
 // TODO: Set view engine and views default directory for ejs;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
@@ -55,12 +55,35 @@ app.use(express.urlencoded({ extended: true }));
 //TODO : This method will be executed everytime server will get a req;
 app.use(methodOverride('_method'));
 
-//TODO: use prefix paths routes;
+//TODO: Static assets
+app.use(express.static(path.join(__dirname, 'public')));
+
+//TODO: Config express session
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+
+app.use(session(sessionConfig))
+app.use(flash());
+
+//TODO :  Flash MidleWare
+//TODO :  We take whatever is in the flash under success and put it and have access to it in locals under the key success;
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
+
+//TODO: Use prefix paths routes;
 app.use('/places', campgrounds);
 app.use('/places/:id/reviews', reviews);
-
-// static assets
-app.use(express.static(path.join(__dirname, 'public')));
 
 
 

@@ -1,14 +1,14 @@
-const express = require('express');
+const express = require('express');  // Require Express;
 const router = express.Router({ mergeParams: true });
 
-const Campground = require('../models/campground');
-const Review = require('../models/review');
+const Campground = require('../models/campground'); // Require  Model
+const Review = require('../models/review'); // Require Review Model
 
-const { reviewSchema } = require('../schemas.js');
+const { reviewSchema } = require('../schemas.js'); // Require the Schema
 
 
-const ExpressError = require('../utils/ExpressError');
-const catchAsync = require('../utils/catchAsync');
+const ExpressError = require('../utils/ExpressError'); //ExpressError Handler
+const catchAsync = require('../utils/catchAsync');  // req catchAsync handler
 
 
 // TODO: Validate Review
@@ -30,7 +30,7 @@ router.post('/', validateReview, catchAsync(async (req, res) => {
     campground.reviews.push(review);
     await review.save();
     await campground.save();
-    // req.flash('success', 'Created new review!');
+    req.flash('success', 'Created new review!');
     res.redirect(`/places/${campground._id}`);
 }))
 
@@ -40,7 +40,7 @@ router.delete('/:reviewId', catchAsync(async (req, res) => {
     const { id, reviewId } = req.params;
     await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
-    // req.flash('success', 'Successfully deleted review')
+    req.flash('success', 'Successfully deleted review')
     res.redirect(`/places/${id}`);
 }))
 
