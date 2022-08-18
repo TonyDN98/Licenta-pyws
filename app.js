@@ -12,7 +12,7 @@ const Review = require('./models/review');// Req Review
 
 
 
-// Create to local DB
+// TODO: Create to local DB
 mongoose.connect('mongodb://localhost:27017/pwys', {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -20,7 +20,7 @@ mongoose.connect('mongodb://localhost:27017/pwys', {
 });
 
 
-// on connect;
+// TODO: on connect;
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -32,19 +32,20 @@ const app = express(); // start express;
 
 app.engine('ejs', ejsMate);
 
-// Set view engine and views default directory for ejs;
+// TODO: Set view engine and views default directory for ejs;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
-// Parse the header;
+
+//TODO : This method will be executed everytime server will get a req; Parse the header;
 app.use(express.urlencoded({ extended: true }));
 
-// This method will be executed everytime server will get a req;
+//TODO : This method will be executed everytime server will get a req;
 app.use(methodOverride('_method'));
 
 
+// TODO: Validate Place
 const validateCampground = (req,res,next) =>{
-
     const {error} = campgroundSchema.validate(req.body);
     if(error){
         // map over error to create a single string;
@@ -55,6 +56,7 @@ const validateCampground = (req,res,next) =>{
     }
 }
 
+//TODO: Validate Review
 const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     if (error) {
@@ -66,7 +68,7 @@ const validateReview = (req, res, next) => {
 }
 
 
-// home.ejs
+// TODO: home.ejs
 app.get('/', (req, res) => {
     res.render('home.ejs')
 });
@@ -78,7 +80,7 @@ app.get('/', (req, res) => {
 * -------------------------------------------------------
 * */
 
-// wrap everything that is async and could throw an error with  catchAsync
+//TODO: wrap everything that is async and could throw an error with  catchAsync
 app.get('/places', catchAsync(async (req, res) => {
     const campgrounds = await Campground.find({});
     res.render('places/index', { campgrounds })
@@ -98,19 +100,19 @@ app.post('/places', validateCampground , catchAsync(async (req, res,next) => {
 }))
 
 
+// TODO: Show Place
 app.get('/places/:id', catchAsync(async (req, res,) => {
     const campground = await Campground.findById(req.params.id).populate('reviews');
-
     res.render('places/show', { campground });
 }));
 
-//EDIT
+//TODO: EDIT Place
 app.get('/places/:id/edit', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id)
     res.render('places/edit', { campground });
 }));
 
-// Update;
+//TODO: Update Place;
 app.put('/places/:id',validateCampground, catchAsync (async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
@@ -118,7 +120,7 @@ app.put('/places/:id',validateCampground, catchAsync (async (req, res) => {
 }));
 
 
-// Delete
+//TODO:  Delete Place
 app.delete('/places/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
@@ -126,7 +128,7 @@ app.delete('/places/:id', catchAsync(async (req, res) => {
 }))
 
 
-
+//TODO: Reviews
 app.post('/places/:id/reviews', validateReview, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
@@ -137,16 +139,26 @@ app.post('/places/:id/reviews', validateReview, catchAsync(async (req, res) => {
 }))
 
 
+// TODO: Delete reviews from a Place
+app.delete('/places/:id/reviews/:reviewId', catchAsync(async (req,res) =>{
+    const {id, reviewId} = req.params;
+    await Campground.findByIdAndUpdate(id, {$pull : {reviewId}}); //$pull an array of id's
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/places/${id}`);
+
+}))
 
 
-// In case of any request ( (*) any path);
-// This will run only if nothing matched first from above;
+
+
+// TODO: In case of any request ( (*) any path);
+// TODO:  This will run only if nothing matched first from above;
 app.all('*', (req,res,next) =>{
     next(new ExpressError('Page Not Found',404))
 })
 
 
-// basic error  handler
+// TODO: Basic error  handler
 app.use((err,req,res,next)=>{
     // Destructure statusCode, message
     const {statusCode = 500} = err;
