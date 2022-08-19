@@ -78,8 +78,9 @@ const sessionConfig = {
 app.use(session(sessionConfig))
 app.use(flash());
 
-// passport
 
+
+// TODO: passport Setup
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -91,13 +92,13 @@ passport.deserializeUser(User.deserializeUser());//how to get a user out of the 
 
 
 //TODO :  Flash MidleWare
-//TODO :  We take whatever is in the flash under success and put it and have access to it in locals under the key success;
+// We take whatever is in the flash under success and put it and have access to it in locals under the key success;
 app.use((req, res, next) => {
     if(!['/login', '/'].includes(req.originalUrl)){
         req.session.returnTo= req.originalUrl;
     }
     console.log(req.session)
-    res.locals.currentUser = req.user;
+    res.locals.currentUser = req.user; // current user session
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
@@ -109,7 +110,7 @@ app.use('/places', campgroundRoutes);
 app.use('/places/:id/reviews', reviewRoutes);
 
 
-// TODO: home.ejs
+// TODO: Render home.ejs
 app.get('/', (req, res) => {
     res.render('home.ejs')
 });
