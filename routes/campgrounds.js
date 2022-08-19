@@ -48,7 +48,7 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res, nex
     // before place is saved;
     campground.author = req.user._id;
     await campground.save();
-    req.flash('success', 'Successfully made a new place!');
+    req.flash('success', "You created the place! I'm sure everyone will appreciate it for sure!");
     res.redirect(`/places/${campground._id}`);
 }))
 
@@ -57,7 +57,7 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res, nex
 router.get('/:id', catchAsync(async (req, res,) => {
     const campground = await Campground.findById(req.params.id).populate('reviews').populate('author');
     if (!campground) {
-        req.flash('error', 'Cannot find that place!');
+        req.flash('error', "We can't find this place for you rn!");
         return res.redirect('/places');
     }
     res.render('places/show', { campground });
@@ -67,7 +67,7 @@ router.get('/:id', catchAsync(async (req, res,) => {
 router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     if (!campground) {
-        req.flash('error', 'Cannot find that place!');
+        req.flash('error', "We can't find this place for you rn!");
         return res.redirect('/places');
     }
     res.render('places/edit', { campground });
@@ -77,7 +77,7 @@ router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
 router.put('/:id', isLoggedIn, validateCampground, catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
-    req.flash('success', 'Successfully updated place!');
+    req.flash('success', 'You updated the place!');
     res.redirect(`/places/${campground._id}`)
 }));
 
@@ -86,7 +86,7 @@ router.put('/:id', isLoggedIn, validateCampground, catchAsync(async (req, res) =
 router.delete('/:id', isLoggedIn, catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
-    req.flash('success', 'Successfully deleted place')
+    req.flash('success', 'You deleted the place! Did you missed something about it? ')
     res.redirect('/places');
 }))
 
