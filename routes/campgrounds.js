@@ -6,7 +6,7 @@ const ExpressError = require('../utils/ExpressError'); //ExpressError Handler
 const {campgroundSchema} = require("../schemas"); // Require the Schema
 const flash = require('connect-flash'); // Connect Flash
 
-const { isLoggedIn } = require('../middleware');
+const { isLoggedIn } = require('../middleware'); // require Login Middleware;
 
 
 
