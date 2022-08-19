@@ -11,6 +11,9 @@ const ExpressError = require('./utils/ExpressError'); //ExpressError Handler
 const methodOverride = require('method-override'); // Req MethodOverride
 const Campground = require('./models/campground'); // Req  the Model;
 const Review = require('./models/review');// Req Review
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user.js'); // require UserModel
 
 
 
@@ -72,6 +75,17 @@ const sessionConfig = {
 
 app.use(session(sessionConfig))
 app.use(flash());
+
+// passport
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use((new LocalStrategy(User.authenticate())));
+
+passport.serializeUser(User.serializeUser()); // how we store a user in a session;
+passport.deserializeUser(User.deserializeUser()); //how to get a user out of the session;
+
+
+
 
 //TODO :  Flash MidleWare
 //TODO :  We take whatever is in the flash under success and put it and have access to it in locals under the key success;
