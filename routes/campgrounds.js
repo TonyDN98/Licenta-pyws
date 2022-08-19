@@ -34,6 +34,7 @@ router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res, nex
 
 // TODO: Show Place
 router.get('/:id', catchAsync(async (req, res,) => {
+    // TODO: Populate Review with  their author;
     const campground = await Campground.findById(req.params.id).populate({
         path: 'reviews',
         populate: {

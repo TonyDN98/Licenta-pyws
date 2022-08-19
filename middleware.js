@@ -2,6 +2,7 @@
 const {campgroundSchema, reviewSchema} = require("./schemas");
 const ExpressError = require("./utils/ExpressError");
 const Campground = require("./models/campground");
+const Review = require('./models/review');
 
 
 module.exports.isLoggedIn = (req, res, next) => {
@@ -32,7 +33,19 @@ module.exports.isAuthor = async (req,res,next ) =>{
     const { id } = req.params;
     const campground = await Campground.findById(id);
     if(!campground.author.equals(req.user._id)){
-        req.flash('error', "You don't have permission to do that!")
+        req.flash('error', "You don't have permission to delete this place!")
+        return res.redirect(`/places/${id}`);
+    }
+
+    next();
+}
+
+//TODO: isAuthor check  middleware;
+module.exports.isReviewAuthor = async (req,res,next ) =>{
+    const { id, reviewId } = req.params;
+    const campground = await Review.findById(reviewId);
+    if(!review.author.equals(req.user._id)){
+        req.flash('error', "You don't have permission to do delete this review!")
         return res.redirect(`/places/${id}`);
     }
 
