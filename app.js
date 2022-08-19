@@ -11,16 +11,18 @@ const ExpressError = require('./utils/ExpressError'); //ExpressError Handler
 const methodOverride = require('method-override'); // Req MethodOverride
 const Campground = require('./models/campground'); // Req  the Model;
 const Review = require('./models/review');// Req Review
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const User = require('./models/user.js'); // require UserModel
+const User = require('./models/user');
 
 
 
 
 // TODO: Prefix routes paths
-const campgrounds = require('./routes/campgrounds.js');
-const reviews = require('./routes/review.js');
+const userRoutes = require('./routes/users');
+const campgroundRoutes = require('./routes/campgrounds');
+const reviewRoutes = require('./routes/review');
 
 
 
@@ -77,12 +79,13 @@ app.use(session(sessionConfig))
 app.use(flash());
 
 // passport
+
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use((new LocalStrategy(User.authenticate())));
+passport.use(new LocalStrategy(User.authenticate()));
 
-passport.serializeUser(User.serializeUser()); // how we store a user in a session;
-passport.deserializeUser(User.deserializeUser()); //how to get a user out of the session;
+passport.serializeUser(User.serializeUser());// how we store a user in a session;
+passport.deserializeUser(User.deserializeUser());//how to get a user out of the session;
 
 
 
@@ -90,15 +93,20 @@ passport.deserializeUser(User.deserializeUser()); //how to get a user out of the
 //TODO :  Flash MidleWare
 //TODO :  We take whatever is in the flash under success and put it and have access to it in locals under the key success;
 app.use((req, res, next) => {
+    if(!['/login', '/'].includes(req.originalUrl)){
+        req.session.returnTo= req.originalUrl;
+    }
+    console.log(req.session)
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 })
 
 //TODO: Use prefix paths routes;
-app.use('/places', campgrounds);
-app.use('/places/:id/reviews', reviews);
-
+app.use('/', userRoutes);
+app.use('/places', campgroundRoutes);
+app.use('/places/:id/reviews', reviewRoutes);
 
 
 // TODO: home.ejs
