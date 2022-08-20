@@ -11,32 +11,21 @@ const placesController = require('../controllers/placesController'); // require 
 *
 * */
 
-
-// TODO: Async function moved to ../controllers;
-router.get('/', catchAsync(placesController.index));
-
+router.route('/')
+    .get(catchAsync(placesController.index)) // TODO: Async function moved to ../controllers;
+    .post( isLoggedIn, validateCampground, catchAsync(placesController.createPlace)); // TODO: cratePlace() moved to ../controllers;
 
 // TODO : Call back function moved to ../controllers;
 router.get('/new', isLoggedIn, placesController.renderNewForm);
 
+router.route('/:id')
+    .get( catchAsync(placesController.showPlace))// TODO: showPlace() moved to ../controllers;
+    .put( isLoggedIn,isAuthor , validateCampground, catchAsync(placesController.updatePlace))//TODO: updatePlace() moved to ../controllers;
+    .delete( isLoggedIn,isAuthor, catchAsync(placesController.deletePlace));//TODO:  deletePlace() moved to ../controllers;
 
-// TODO: cratePlace() moved to ../controllers;
-router.post('/', isLoggedIn, validateCampground, catchAsync(placesController.createPlace));
-
-
-// TODO: showPlace() moved to ../controllers;
-router.get('/:id', catchAsync(placesController.showPlace));
 
 //TODO: renderEditForm() moved to ../controllers;
 router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(placesController.renderEditForm));
-
-
-//TODO: updatePlace() moved to ../controllers;
-router.put('/:id', isLoggedIn,isAuthor , validateCampground, catchAsync(placesController.updatePlace));
-
-
-//TODO:  deletePlace() moved to ../controllers;
-router.delete('/:id', isLoggedIn,isAuthor, catchAsync(placesController.deletePlace));
 
 
 module.exports = router;

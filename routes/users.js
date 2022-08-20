@@ -5,21 +5,15 @@ const catchAsync = require('../utils/catchAsync');
 const userController = require('../controllers/usersControllers'); // require userControllers;
 
 
-// TODO: renderUserRegister() moved to ../controllers;
-router.get('/register', userController.renderUserRegister);
+router.route('/register')
+    .get( userController.renderUserRegister) // TODO: renderUserRegister() moved to ../controllers;
+    .post( catchAsync(userController.register)); // TODO: Register User/Pass register()  moved to ../controllers;
 
 
-// TODO: Register User/Pass register()  moved to ../controllers;
-router.post('/register', catchAsync(userController.register));
-
-
-// TODO: renderLogin()  moved to ../controllers;
-router.get('/login', userController.renderLogin);
-
-
-// TODO: userLoginRedirect() moved to ../controllers;
-router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), userController.userLoginRedirect)
-
+router.route('/login')
+    .get(userController.renderLogin) // TODO: renderLogin()  moved to ../controllers;
+    .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }),
+        userController.userLoginRedirect); // TODO: userLoginRedirect() moved to ../controllers;
 
 // TODO: userLogOut  moved to ../controllers;
 router.get("/logout", userController.userLogOut);
