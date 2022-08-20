@@ -33,7 +33,7 @@ module.exports.isAuthor = async (req,res,next ) =>{
     const { id } = req.params;
     const campground = await Campground.findById(id);
     if(!campground.author.equals(req.user._id)){
-        req.flash('error', "You don't have permission to delete this place!")
+        req.flash('error', "You don't have permission to edit this place!")
         return res.redirect(`/places/${id}`);
     }
 
