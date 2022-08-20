@@ -21,7 +21,7 @@ const User = require('./models/user');
 
 // TODO: Prefix routes paths
 const userRoutes = require('./routes/users');
-const campgroundRoutes = require('./routes/campgrounds');
+const campgroundRoutes = require('./routes/places');
 const reviewRoutes = require('./routes/review');
 
 
@@ -91,7 +91,7 @@ passport.deserializeUser(User.deserializeUser());//how to get a user out of the 
 
 
 
-//TODO :  Flash MidleWare
+//TODO :  Flash MiddleWare
 // We take whatever is in the flash under success and put it and have access to it in locals under the key success;
 app.use((req, res, next) => {
     if(!['/login', '/'].includes(req.originalUrl)){

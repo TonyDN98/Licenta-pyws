@@ -17,7 +17,7 @@ router.get('/', catchAsync(placesController.index));
 
 
 // TODO : Call back function moved to ../controllers;
-router.get('/new', isLoggedIn, placesController.rederNewForm);
+router.get('/new', isLoggedIn, placesController.renderNewForm);
 
 
 // TODO: cratePlace() moved to ../controllers;

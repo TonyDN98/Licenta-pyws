@@ -41,14 +41,13 @@ module.exports.isAuthor = async (req,res,next ) =>{
 }
 
 //TODO: isAuthor check  middleware;
-module.exports.isReviewAuthor = async (req,res,next ) =>{
+module.exports.isReviewAuthor = async (req, res, next) => {
     const { id, reviewId } = req.params;
-    const campground = await Review.findById(reviewId);
-    if(!review.author.equals(req.user._id)){
-        req.flash('error', "You don't have permission to do delete this review!")
+    const review = await Review.findById(reviewId);
+    if (!review.author.equals(req.user._id)) {
+        req.flash('error', 'You do not have permission to do that!');
         return res.redirect(`/places/${id}`);
     }
-
     next();
 }
 
