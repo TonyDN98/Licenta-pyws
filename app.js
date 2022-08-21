@@ -1,9 +1,3 @@
-//TODO: When in production mode require cloudinary config;
-if (process.env.NODE_ENV !== "production") {
-    require('dotenv').config();
-}
-
-
 const express = require('express'); // Require Express;
 const path = require('path'); // Req Path -> express default dir
 const mongoose = require('mongoose'); // Req Mongoose;
@@ -143,11 +137,8 @@ app.use((err,req,res,next)=>{
 });
 
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Serving on port ${port}`)
-})
 
-// app.listen(3000, () => {
-//     console.log('Serving on port 3000')
-// })
+
+app.listen(3000, () => {
+    console.log('Serving on port 3000')
+})

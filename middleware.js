@@ -16,7 +16,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 
 // TODO: Validate Place
-module.exports.validatePlace = (req, res, next) =>{
+module.exports.validateCampground = (req,res,next) =>{
     const {error} = campgroundSchema.validate(req.body);
     if(error){
         // map over error to create a single string;

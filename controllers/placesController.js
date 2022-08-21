@@ -14,8 +14,6 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.createPlace = async (req, res, next) => {
     const campground = new Campground(req.body.campground);
-    // Map place images path filename on creating place
-    campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     // before place is saved;
     campground.author = req.user._id;
     await campground.save();
@@ -56,10 +54,6 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updatePlace = async (req, res) => {
     const {id} = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
-    // dont push the entire array just  the data from
-    const imgs  =  req.files.map(f => ({ url: f.path, filename: f.filename }));
-    campground.images.push(...imgs);
-    await campground.save();
     req.flash('success', 'You updated the place!');
     res.redirect(`/places/${campground._id}`)
 
