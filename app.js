@@ -1,20 +1,24 @@
-const express = require('express');
-const path = require('path');
-const mongoose = require('mongoose');
-const ejsMate = require('ejs-mate');
-const session = require('express-session');
-const flash = require('connect-flash');
-const ExpressError = require('./utils/ExpressError');
-const methodOverride = require('method-override');
+const express = require('express'); // Require Express;
+const path = require('path');  // Require Path -> express default dir
+const mongoose = require('mongoose'); // Req Mongoose;
+const ejsMate = require('ejs-mate'); // req ejs mate layouts
+const session = require('express-session'); // Req Express session;
+const flash = require('connect-flash'); // Connect Flash
+const ExpressError = require('./utils/ExpressError'); //ExpressError Handler
+const methodOverride = require('method-override'); // Req MethodOverride
+
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 
 
+// TODO: Prefix routes paths
 const userRoutes = require('./routes/users');
 const placesRoutes = require('./routes/places');
 const reviewRoutes = require('./routes/reviews');
 
+// TODO: Create to local DB
 mongoose.connect('mongodb://localhost:27017/pys', {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -22,22 +26,28 @@ mongoose.connect('mongodb://localhost:27017/pys', {
     useFindAndModify: false
 });
 
+
+// TODO: On connect;
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
     console.log("Database connected");
 });
 
-const app = express();
+const app = express(); // start express;
 
+// TODO: Set view engine and views default directory for ejs;
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
+//TODO : This method will be executed everytime server will get a req; Parse the header;
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+//TODO: Static assets
 app.use(express.static(path.join(__dirname, 'public')))
 
+//TODO: Config Express Session
 const sessionConfig = {
     secret: 'thisshouldbeabettersecret!',
     resave: false,
@@ -49,45 +59,51 @@ const sessionConfig = {
     }
 }
 
+
 app.use(session(sessionConfig))
 app.use(flash());
 
+// TODO: passport Setup
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(User.serializeUser()); // store a user in a session;
+passport.deserializeUser(User.deserializeUser()); //  get a user out of the session;
 
 app.use((req, res, next) => {
     console.log(req.session)
-    res.locals.currentUser = req.user;
+    res.locals.currentUser = req.user;  // current user session
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 })
 
-
+//TODO: Use prefix paths routes;
 app.use('/', userRoutes);
 app.use('/places', placesRoutes)
 app.use('/places/:id/reviews', reviewRoutes)
 
 
+// TODO: Render home.ejs
 app.get('/', (req, res) => {
     res.render('home')
 });
 
-
+// TODO: In case of any request ( (*) any path);
+// TODO:  This will run only if nothing matched first from above;
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
 })
 
+// TODO: Basic Error  Handler
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
     if (!err.message) err.message = 'Oh No, Something Went Wrong!'
     res.status(statusCode).render('error', { err })
 })
 
+// TODO: Server Port
 app.listen(3000, () => {
     console.log('Serving on port 3000')
 })

@@ -10,6 +10,6 @@ const UserSchema = new Schema({
     }
 });
 
-UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose);  // give some additional () to our UserSchema, also complete with fields password our schema;
 
 module.exports = mongoose.model('User', UserSchema);

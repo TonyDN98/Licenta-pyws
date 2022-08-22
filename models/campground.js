@@ -20,6 +20,7 @@ const CampgroundSchema = new Schema({
     ]
 });
 
+// TODO: Delete (MONGO) the reviews from db after Place was deleted;
 CampgroundSchema.post('findOneAndDelete', async function (doc) {
     if (doc) {
         await Review.deleteMany({
