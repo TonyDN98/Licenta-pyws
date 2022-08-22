@@ -5,20 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58957f57-2feb-4c18-a25f-b6506e649a89" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloudinary/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/placesController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/placesController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/reviewsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/reviewsController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/usersController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/usersController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/campground.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/campground.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/javascripts/validateForms.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/validateForms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/places.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/places.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/reviews.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/reviews.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/ExpressError.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/ExpressError.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/catchAsync.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/catchAsync.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/places/edit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/places/edit.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/places/new.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/places/new.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/places/show.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/places/show.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +60,7 @@
       <workItem from="1661111358179" duration="242000" />
       <workItem from="1661111650372" duration="571000" />
       <workItem from="1661146641291" duration="2137000" />
-      <workItem from="1661149454350" duration="1444000" />
+      <workItem from="1661149454350" duration="4331000" />
     </task>
     <servers />
   </component>
