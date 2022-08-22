@@ -9,7 +9,12 @@
     <div class="card mb-3">
         <div class="row">
             <div class="col-md-4">
+                <!-- If no image then display a default one-->
+                <%if (campground.images.length){%>
                 <img class="img-fluid" src="<%=campground.images[0].url%>" alt="Place Image">
+                <%}else{%>
+                <img class="img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/6/6a/A_blank_flag.png" alt="Place Image">
+                <%}%>
             </div>
             <div class="col-md-8">
                 <div class="card-body">
