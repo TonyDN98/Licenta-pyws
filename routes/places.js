@@ -22,7 +22,7 @@ router.get('/new', isLoggedIn, place.renderNewForm)
 
 router.route('/:id')
     .get(catchAsync(place.showPlace)) // TODO: showPlace() moved to ../controllers;
-    .put(isLoggedIn, isAuthor, validatePlace, catchAsync(place.updatePlace)) //TODO: updatePlace() moved to ../controllers;
+    .put(isLoggedIn, isAuthor,upload.array('image'), validatePlace, catchAsync(place.updatePlace)) //TODO: updatePlace() moved to ../controllers;
     .delete(isLoggedIn, isAuthor, catchAsync(place.deletePlace)); //TODO:  deletePlace() moved to ../controllers;
 
 //TODO: renderEditForm() moved to ../controllers;
