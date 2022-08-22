@@ -1,8 +1,8 @@
-const User = require("../models/user");
-module.exports.renderUserRegister = (req, res) => {
-    res.render('users/register');
-};
+const User = require('../models/user');
 
+module.exports.renderRegister = (req, res) => {
+    res.render('users/register');
+}
 
 module.exports.register = async (req, res, next) => {
     try {
@@ -11,30 +11,28 @@ module.exports.register = async (req, res, next) => {
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, err => {
             if (err) return next(err);
-            req.flash('success', 'Welcome to PlacesYouShare!');
+            req.flash('success', 'Welcome to Yelp Camp!');
             res.redirect('/places');
         })
     } catch (e) {
         req.flash('error', e.message);
         res.redirect('register');
     }
-};
+}
+
 module.exports.renderLogin = (req, res) => {
     res.render('users/login');
-};
+}
 
-module.exports.userLoginRedirect  = (req, res) => {
-    req.flash('success', 'Welcome Back!');
+module.exports.login = (req, res) => {
+    req.flash('success', 'welcome back!');
     const redirectUrl = req.session.returnTo || '/places';
     delete req.session.returnTo;
     res.redirect(redirectUrl);
-};
+}
 
-module.exports.userLogOut = (req, res) => {
-    req.logout(req.user, err => {
-        if(err) return next(err);
-
-        req.flash('success', "See you later!");
-        res.redirect("/places");
-    });
+module.exports.logout = (req, res) => {
+    req.logout();
+    req.flash('success', "Goodbye!");
+    res.redirect('/places');
 }

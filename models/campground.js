@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 const Review = require('./review')
 const Schema = mongoose.Schema;
@@ -10,10 +9,9 @@ const CampgroundSchema = new Schema({
     description: String,
     location: String,
     author: {
-        type : Schema.Types.ObjectId,
-        ref : 'User'
-    }
-    ,
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,
@@ -22,8 +20,6 @@ const CampgroundSchema = new Schema({
     ]
 });
 
-
-// TODO: Delete  (MONGO) the reviews from db after Place was deleted;
 CampgroundSchema.post('findOneAndDelete', async function (doc) {
     if (doc) {
         await Review.deleteMany({

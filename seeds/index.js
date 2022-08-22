@@ -1,9 +1,3 @@
-/*
-* ---------------------------------------
-* SEED DB
-*----------------------------------------
-* */
-
 const mongoose = require('mongoose');
 const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
@@ -11,6 +5,7 @@ const Campground = require('../models/campground');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
     useNewUrlParser: true,
+    useCreateIndex: true,
     useUnifiedTopology: true
 });
 
@@ -28,13 +23,14 @@ const seedDB = async () => {
     await Campground.deleteMany({});
     for (let i = 0; i < 50; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
-        const randomPrice = Math.floor(Math.random()* 100 + 1)
+        const price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campground({
+            author: '5f5c330c2cd79d538f2c66d9',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
-            image: 'https://unsplash.com/collections/220381',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab animi, commodi corporis deleniti ea ex, excepturi facilis illum iste libero odio odit omnis praesentium sit temporibus totam ut voluptas voluptate?',
-            price: randomPrice
+            image: 'https://source.unsplash.com/collection/483251',
+            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
+            price
         })
         await camp.save();
     }

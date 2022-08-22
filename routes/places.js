@@ -1,31 +1,24 @@
-const express = require('express');  // Require Express;
-const catchAsync = require("../utils/catchAsync");  // req catchAsync handler
-const router = express.Router(); // express router;
-const flash = require('connect-flash'); // Connect Flash
-const { isLoggedIn , isAuthor,validateCampground } = require('../middleware'); // require Middleware;
-const placesController = require('../controllers/placesController'); // require placesControllers;
+const express = require('express');
+const router = express.Router();
+const place = require('../controllers/placesController');
+const catchAsync = require('../utils/catchAsync');
+const { isLoggedIn, isAuthor, validatePlace } = require('../middleware');
 
-
-
-/*
-*
-* */
+const Campground = require('../models/campground');
 
 router.route('/')
-    .get(catchAsync(placesController.index)) // TODO: Async function moved to ../controllers;
-    .post( isLoggedIn, validateCampground, catchAsync(placesController.createPlace)); // TODO: cratePlace() moved to ../controllers;
+    .get(catchAsync(place.index))
+    .post(isLoggedIn, validatePlace, catchAsync(place.createPlace))
 
-// TODO : Call back function moved to ../controllers;
-router.get('/new', isLoggedIn, placesController.renderNewForm);
+router.get('/new', isLoggedIn, place.renderNewForm)
 
 router.route('/:id')
-    .get( catchAsync(placesController.showPlace))// TODO: showPlace() moved to ../controllers;
-    .put( isLoggedIn,isAuthor , validateCampground, catchAsync(placesController.updatePlace))//TODO: updatePlace() moved to ../controllers;
-    .delete( isLoggedIn,isAuthor, catchAsync(placesController.deletePlace));//TODO:  deletePlace() moved to ../controllers;
+    .get(catchAsync(place.showPlace))
+    .put(isLoggedIn, isAuthor, validatePlace, catchAsync(place.updatePlace))
+    .delete(isLoggedIn, isAuthor, catchAsync(place.deletePlace));
 
+router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(place.renderEditForm))
 
-//TODO: renderEditForm() moved to ../controllers;
-router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(placesController.renderEditForm));
 
 
 module.exports = router;

@@ -1,78 +1,57 @@
-<% layout('/layouts/boilerplate.ejs')%>
-
-
+<% layout('layouts/boilerplate')%>
 <div class="row">
     <h1 class="text-center">Edit Place</h1>
     <div class="col-6 offset-3">
         <form action="/places/<%=campground._id%>?_method=PUT" method="POST" novalidate class="validated-form">
-
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
-                <input class="form-control" type="text" id="title" name="campground[title]" value="<%=campground.title %>"  required>
+                <input class="form-control" type="text" id="title" name="campground[title]"
+                    value="<%=campground.title %>" required>
                 <div class="valid-feedback">
-                    Owkizay
+                    Looks good!
                 </div>
             </div>
-
             <div class="mb-3">
                 <label class="form-label" for="location">Location</label>
-                <input class="form-control"  type="text" id="location" name="campground[location]" value="<%= campground.location%>" required>
+                <input class="form-control" type="text" id="location" name="campground[location]"
+                    value="<%=campground.location %>" required>
                 <div class="valid-feedback">
-                    Owkizay
+                    Looks good!
                 </div>
             </div>
-
-
             <div class="mb-3">
                 <label class="form-label" for="image">Image Url</label>
-                <input class="form-control"  type="text" id="image" name="campground[image]" value="<%=campground.image %>" required>
+                <input class="form-control" type="text" id="image" name="campground[image]"
+                    value="<%=campground.image %>" required>
                 <div class="valid-feedback">
-                    Owkizay
+                    Looks good!
                 </div>
             </div>
-
-
             <div class="mb-3">
-                <label class="form-label" for="price">Place Total Cost</label>
-
+                <label class="form-label" for="price"> Price</label>
                 <div class="input-group">
-                    <span class="input-group-text" id="price-label">RON </span>
-                    <input type="text" class="form-control" id="price" name="campground[price]" placeholder="0.00" aria-label="price" aria-describedby="price-label" value="<%=campground.price %>" required>
-                    <div class="valid-feedback">
-                        Owkizay
+                    <span class="input-group-text" id="price-label">$</span>
+                    <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
+                        aria-describedby="price-label" name="campground[price]" value="<%=campground.price %>"
+                        required>\<div class="valid-feedback">
+                        Looks good!
                     </div>
                 </div>
             </div>
 
-
             <div class="mb-3">
                 <label class="form-label" for="description">Description</label>
-                <textarea class="form-control"  type="text" id="description" name="campground[description]" required>
-                    <%= campground.description%>
-                </textarea>
+                <textarea class="form-control" type="text" id="description" name="campground[description]"
+                    required><%= campground.description%></textarea>
                 <div class="valid-feedback">
-                    Owkizay
+                    Looks good!
                 </div>
             </div>
-
             <div class="mb-3">
-                <div class="form-file custom-file">
-                    <input type="file" class="form-file-input" id="image" name="image" multiple>
-                    <label class="form-file-label" for="image">
-                        <span class="form-file-text custom-file-label">Add more image(s)...</span>
-                        <span class="form-file-button">Browse</span>
-                    </label>
-                </div>
+                <button class="btn btn-info">Update Place</button>
             </div>
-
-
-            <div class="md-3">
-                <button class="btn btn-success">Update Place</button>
-            </div>
-
         </form>
-    </div>
+        <a href="/places/<%= campground._id%>">Back To Places</a>
 
-    <!-- Back to added POST-->
-    <a href="/places/<%= campground._id%>">Back To Place</a>
+    </div>
 </div>
