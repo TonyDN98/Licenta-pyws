@@ -4,7 +4,7 @@
 <div class="container">
     <h1>All places</h1>
     <div>
-        <a href="/places/new">Add Campground</a>
+        <a href="/places/new">Add Place</a>
     </div>
     <% for (let campground of campgrounds){%>
     <div class="card mb-3" >
@@ -35,7 +35,7 @@
     const campgrounds = {features: <%- JSON.stringify(campgrounds)%>};
 </script>
 
-// TODO: Refa pointers on map
+
 <script>
 
     mapboxgl.accessToken = 'pk.eyJ1IjoidG9ueWRuOTgiLCJhIjoiY2w3NHc1MngxMGVkcTNudGhjYm4zZDc2biJ9.Bn5sLOhN4xk-jRJfhYdQVA';
@@ -46,6 +46,7 @@
         zoom: 3
     });
 
+    map.addControl(new mapboxgl.NavigationControl()); // navigation control on cluster map;
 
 
 

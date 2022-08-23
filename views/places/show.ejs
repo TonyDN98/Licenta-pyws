@@ -107,6 +107,8 @@
         projection: 'globe' // display the map as a 3D globe
     });
 
+    map.addControl(new mapboxgl.NavigationControl()); // navigation control on cluster map;
+
     new mapboxgl.Marker()
         .setLngLat(campground.geometry.coordinates)
         .setPopup(

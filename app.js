@@ -6,18 +6,19 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require('express'); // Require Express;
 const path = require('path');  // Require Path -> express default dir
-const mongoose = require('mongoose'); // Req Mongoose;
-const ejsMate = require('ejs-mate'); // req ejs mate layouts
-const session = require('express-session'); // Req Express session;
+const mongoose = require('mongoose'); // Require Mongoose;
+const ejsMate = require('ejs-mate'); // Require ejs mate layouts
+const session = require('express-session'); // Require Express session;
 const flash = require('connect-flash'); // Connect Flash
 const ExpressError = require('./utils/ExpressError'); //ExpressError Handler
-const methodOverride = require('method-override'); // Req MethodOverride
+const methodOverride = require('method-override'); // Require MethodOverride
 
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 
+const mongoSanitize = require('express-mongo-sanitize'); // Require Mongo Sanitize Mongo Injector
 
 // TODO: Prefix routes paths
 const userRoutes = require('./routes/users');
@@ -52,14 +53,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 //TODO: Static assets
 app.use(express.static(path.join(__dirname, 'public')))
+// TODO: Mongo Sanitize
+app.use(mongoSanitize({
+    replaceWith: '_'
+}))
 
 //TODO: Config Express Session
 const sessionConfig = {
+    name: 'session',
     secret: 'thisshouldbeabettersecret!',
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // secure:true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -110,10 +117,14 @@ app.use((err, req, res, next) => {
 })
 
 // TODO: Server Port
-app.listen(3000, () => {
-    console.log('Serving on port 3000')
-})
+// app.listen(3000, () => {
+//     console.log('Serving on port 3000')
+// })
 
+
+app.listen(3000, "127.0.0.1", function(){
+    console.log("The  PlacesYouShare Server Has Started!");
+});
 // const port = process.env.PORT || 3000;
 // app.listen(port, () => {
 //     console.log(`Serving on port ${port}`)
