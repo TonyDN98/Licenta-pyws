@@ -135,10 +135,11 @@ app.use((err, req, res, next) => {
 
 // TODO: Server Port
 
-const port = process.env.PORT || 3000;
-// app.listen(3000, "127.0.0.1", function(){
-//     console.log("The  PlacesYouShare Server Has Started!");
-// });
+const port = process.env.PORT || 3000;git
+
+app.listen(3000, "127.0.0.1", function(){
+    console.log("The  PlacesYouShare Server Has Started!");
+});
 
 app.listen(port, () => {
     console.log(`Serving on port ${port}`)
